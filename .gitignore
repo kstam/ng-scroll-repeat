@@ -1,0 +1,12 @@
+##INTELLIJ FILES
+*.iml
+.idea
+
+## GRADLE FILES
+.gradle
+gradle
+gradlew
+gradlew.bat
+
+## npm FILES
+node_modules
