@@ -8,5 +8,9 @@ gradle
 gradlew
 gradlew.bat
 
-## npm FILES
+## npm and bower FILES
 node_modules
+bower_components
+
+## lib dependencies
+libs

@@ -1,9 +1,8 @@
-angular.module('ks.scrollRepeat', [])
-    .directive('scrollRepeat', function ($compile) {
+angular.module('ks.scrollRepeat', ['ks-window-service'])
+    .directive('scrollRepeat', ['$compile', 'WindowService', function ($compile, windowService) {
         'use strict';
 
-        var DEFAULT_INIT_SIZE = 50;
-        var DEFAULT_STEP = 50;
+        var DEFAULT_PAGE_SIZE = 50;
         var DEFAULT_TOLERANCE = 200;
 
         var verifyRepeatExpression = function (repeatExpression) {
@@ -13,8 +12,8 @@ angular.module('ks.scrollRepeat', [])
         };
 
         var calculateScrollBottomDiff = function (element) {
-            var browserBottom = $(window).height();
-            var elementBottom = element.offset().top - $(window).scrollTop() + element.height();
+            var browserBottom = windowService.height();
+            var elementBottom = element.offset().top - windowService.scrollTop() + element.height();
             return elementBottom - browserBottom;
         };
 
@@ -22,8 +21,7 @@ angular.module('ks.scrollRepeat', [])
             var repeatExpression = tAttributes.scrollRepeat;
             var match = repeatExpression.match(/^\s*(.+)\s+in\s+(.*?)\s*(\s+track\s+by\s+(.+)\s*)?$/);
             var collectionString = match[2];
-            var initSize = (tAttributes.initSize) ? Number(tAttributes.initSize) : DEFAULT_INIT_SIZE;
-            var step = (tAttributes.step) ? Number(tAttributes.step) : DEFAULT_STEP;
+            var pageSize = (tAttributes.pageSize) ? Number(tAttributes.pageSize) : DEFAULT_PAGE_SIZE;
             var tolerance = (tAttributes.tolerance) ? Number(tAttributes.tolerance) : DEFAULT_TOLERANCE;
 
             verifyRepeatExpression(repeatExpression);
@@ -33,7 +31,7 @@ angular.module('ks.scrollRepeat', [])
             return function link($scope, $element) {
                 var totalLength;
 
-                $scope.visibleResults = initSize;
+                $scope.visibleResults = pageSize;
                 $compile($element)($scope);
 
                 $scope.$watch(collectionString, function (collection) {
@@ -42,12 +40,12 @@ angular.module('ks.scrollRepeat', [])
 
                 var elementParent = $($element[0]).parent();
 
-                $(window).on('scroll', function () {
+                windowService.registerForScroll($scope);
+
+                $scope.$on(windowService.WINDOW_SCROLL, function () {
                     var diff = calculateScrollBottomDiff(elementParent);
                     if (diff <= tolerance && totalLength > $scope.visibleResults) {
-                        safeApply($scope, function () {
-                            $scope.visibleResults += step;
-                        });
+                        $scope.visibleResults += pageSize;
                     }
                 });
             };
@@ -59,4 +57,4 @@ angular.module('ks.scrollRepeat', [])
             restrict: 'A',
             compile: compile
         };
-    });
+    }]);

@@ -7,6 +7,8 @@ var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var concat = require('gulp-concat');
+var bower = require('gulp-bower');
+var karma = require('karma').server;
 
 gulp.task('lint', function() {
    return gulp.src('source/*.js')
@@ -14,21 +16,46 @@ gulp.task('lint', function() {
        .pipe(jshint.reporter('default'));
 });
 
+gulp.task('bower', function() {
+    return bower()
+        .pipe(gulp.dest('libs/'));
+});
+
+gulp.task('test', function(done) {
+    // Be sure to return the stream
+    karma.start({
+        configFile: __dirname + '/test/config/karma.conf.js',
+        singleRun: true
+    }, done);
+});
+
+gulp.task('testDist', function(done) {
+    // Be sure to return the stream
+    karma.start({
+        configFile: __dirname + '/test/config/karma.conf.dist.js',
+        singleRun: true
+    }, done);
+});
+
+gulp.task('testDistMin', function(done) {
+    // Be sure to return the stream
+    karma.start({
+        configFile: __dirname + '/test/config/karma.conf.distMin.js',
+        singleRun: true
+    }, done);
+});
+
 gulp.task('dist', function() {
    return gulp.src('source/*.js')
-       .pipe(concat('ks-scroll-repeat.js'))
+       .pipe(concat('scroll-repeat.js'))
        .pipe(gulp.dest('dist'))
        .pipe(uglify())
-       .pipe(rename('ks-scroll-repeat.min.js'))
+       .pipe(rename('scroll-repeat.min.js'))
        .pipe(gulp.dest('dist'));
 });
 
-gulp.task('test', function() {
-
-});
-
 gulp.task('watch', function() {
-    gulp.watch('js/*.js', ['lint', 'dist']);
+    gulp.watch('source/*.js', ['lint', 'test']);
 });
 
-gulp.task('default', ['lint', 'dist', 'watch']);
+gulp.task('default', ['lint', 'bower', 'test', 'dist', 'distTest', 'distMinTest']);

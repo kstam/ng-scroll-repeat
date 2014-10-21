@@ -1,23 +1,21 @@
 {
-    "name": "ks-scroll-repeat",
-    "version": "0.0.1",
-    "main": "dist/ks-scroll-repeat.js",
-    "ignore": [
-        "source",
-        "spec",
-        ".bowerrc",
-        ".gitignore",
-        ".jshintignore",
-        ".jshintrc",
-        "bower.json",
-        "gruntfile.js",
-        "package.json",
-        "README.md"
-    ],
-    "dependencies": {
-        "jquery": ">=1.10.2",
-        "angular": ">=v1.0.7"
-    },
-    "devDependencies": {
-    }
+  "name": "scroll-repeat",
+  "version": "0.0.1",
+  "main": "dist/scroll-repeat.js",
+  "ignore": [
+    "source",
+    "test",
+    ".bowerrc",
+    ".gitignore",
+    "bower.json",
+    "gruntfile.js",
+    "package.json",
+    "README.md"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "jquery": ">=1.10.2",
+    "angular": ">=v1.0.7",
+    "angular-mocks": "~1.3.0"
+  }
 }
