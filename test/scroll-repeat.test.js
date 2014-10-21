@@ -111,4 +111,18 @@ describe('Scroll Repeat Directive', function() {
         fireScrollEvent();
         expect(element.find('.item').length).toBe(30);
     });
+
+    it('does not allow startsFrom in the filters list', function() {
+        var elementHtml = '<div><div scroll-repeat="item in items | startFrom: 1"</div>{{item.id}}</div>';
+        expect(function() {
+            $compile(elementHtml)(scope);
+        }).toThrow();
+    });
+
+    it('does not allow limitTo in the filters list', function() {
+        var elementHtml = '<div><div scroll-repeat="item in items | limitTo: 1"</div>{{item.id}}</div>';
+        expect(function() {
+            $compile(elementHtml)(scope);
+        }).toThrow();
+    });
 });
