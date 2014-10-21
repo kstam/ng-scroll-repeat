@@ -8,7 +8,7 @@
     ".bowerrc",
     ".gitignore",
     "bower.json",
-    "gruntfile.js",
+    "gulpfile.js",
     "package.json",
     "README.md"
   ],

@@ -3,7 +3,19 @@ Angular Scroll Repeat
 
 An angular directive that uses the ng-repeat augmented with infinite scrolling functionality.
 
-How to use
+Install
+---
+
+Download from here:
+
+- [Development](dist/ng-scroll-repeat.js)
+- [Minimized](dist/ng-scroll-repeat.min.js)
+
+Or using bower run
+
+    bower install ng-scroll-repeat
+
+Use
 ---
 
 HTML
