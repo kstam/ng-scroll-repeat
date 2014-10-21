@@ -39,7 +39,7 @@ describe('Scroll Repeat Directive', function() {
     }
 
     function fireScrollEvent() {
-        scope.$broadcast('WINDOW_SCROLL');
+        scope.$broadcast(mockWindowService.WINDOW_SCROLL);
         scope.$digest();
     }
 
