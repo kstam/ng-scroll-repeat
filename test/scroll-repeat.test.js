@@ -6,7 +6,7 @@ describe('Scroll Repeat Directive', function() {
     // Mock the window service which is responsible for firing events and getting
     // window dimensions
     beforeEach(function() {
-        angular.mock.module('ks.scrollRepeat', function($provide) {
+        angular.mock.module('ks.ngScrollRepeat', function($provide) {
             mockWindowService = {
                 height: function() {return windowHeight},
                 scrollTop: function() {return scrollTop},
@@ -44,7 +44,7 @@ describe('Scroll Repeat Directive', function() {
     }
 
     function compileDirective(itemSize, pageSize, tolerance) {
-        var elementHtml = '<div><div scroll-repeat="item in items" page-size="'+ pageSize +'"' +
+        var elementHtml = '<div><div ng-scroll-repeat="item in items" page-size="'+ pageSize +'"' +
             'tolerance="' + tolerance + '" class="item">' +
             '<div class="id">{{item.id}}</div>' +
             '<div class="desc">{{item.description}}</div>' +
@@ -113,14 +113,14 @@ describe('Scroll Repeat Directive', function() {
     });
 
     it('does not allow startsFrom in the filters list', function() {
-        var elementHtml = '<div><div scroll-repeat="item in items | startFrom: 1"</div>{{item.id}}</div>';
+        var elementHtml = '<div><div ng-scroll-repeat="item in items | startFrom: 1"</div>{{item.id}}</div>';
         expect(function() {
             $compile(elementHtml)(scope);
         }).toThrow();
     });
 
     it('does not allow limitTo in the filters list', function() {
-        var elementHtml = '<div><div scroll-repeat="item in items | limitTo: 1"</div>{{item.id}}</div>';
+        var elementHtml = '<div><div ng-scroll-repeat="item in items | limitTo: 1"</div>{{item.id}}</div>';
         expect(function() {
             $compile(elementHtml)(scope);
         }).toThrow();

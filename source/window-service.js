@@ -1,4 +1,4 @@
-angular.module('ks-window-service', [])
+angular.module('ks.WindowService', [])
     .factory('WindowService', ['$window', function ($window) {
         var windowElement = angular.element($window);
         var WINDOW_SCROLL = 'WINDOW_SCROLL';
@@ -28,4 +28,3 @@ angular.module('ks-window-service', [])
             }
         }
     }]);
-

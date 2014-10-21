@@ -47,10 +47,10 @@ gulp.task('testDistMin', function(done) {
 
 gulp.task('dist', function() {
    return gulp.src('source/*.js')
-       .pipe(concat('scroll-repeat.js'))
+       .pipe(concat('ng-scroll-repeat.js'))
        .pipe(gulp.dest('dist'))
        .pipe(uglify())
-       .pipe(rename('scroll-repeat.min.js'))
+       .pipe(rename('ng-scroll-repeat.min.js'))
        .pipe(gulp.dest('dist'));
 });
 
@@ -58,4 +58,4 @@ gulp.task('watch', function() {
     gulp.watch('source/*.js', ['lint', 'test']);
 });
 
-gulp.task('default', ['lint', 'bower', 'test', 'dist', 'distTest', 'distMinTest']);
+gulp.task('default', ['lint', 'bower', 'test', 'dist', 'testDist', 'testDistMin']);

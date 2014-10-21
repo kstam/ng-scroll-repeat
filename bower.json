@@ -1,7 +1,7 @@
 {
-  "name": "scroll-repeat",
+  "name": "ng-scroll-repeat",
   "version": "0.0.1",
-  "main": "dist/scroll-repeat.js",
+  "main": "dist/ng-scroll-repeat.js",
   "ignore": [
     "source",
     "test",

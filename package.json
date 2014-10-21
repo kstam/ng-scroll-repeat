@@ -1,5 +1,5 @@
 {
-  "name": "ksScrollRepeat",
+  "name": "ng-scroll-repeat",
   "version": "0.0.1",
   "description": "Augmented Angular Repeat with infinite scroll functionality",
   "scripts": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.corp.ebay.com:kstamatoukos/ksScrollRepeat.git"
+    "url": "git@github.com:kstam/ng-scroll-repeat.git"
   },
   "keywords": [
     "infinite",

@@ -1,5 +1,5 @@
-angular.module('ks.scrollRepeat', ['ks-window-service'])
-    .directive('scrollRepeat', ['$compile', 'WindowService', function ($compile, windowService) {
+angular.module('ks.ngScrollRepeat', ['ks.WindowService'])
+    .directive('ngScrollRepeat', ['$compile', 'WindowService', function ($compile, windowService) {
         'use strict';
 
         var DEFAULT_PAGE_SIZE = 50;
@@ -18,15 +18,15 @@ angular.module('ks.scrollRepeat', ['ks-window-service'])
         };
 
         var compile = function (tElement, tAttributes) {
-            var repeatExpression = tAttributes.scrollRepeat;
+            var repeatExpression = tAttributes.ngScrollRepeat;
             var match = repeatExpression.match(/^\s*(.+)\s+in\s+(.*?)\s*(\s+track\s+by\s+(.+)\s*)?$/);
             var collectionString = match[2];
             var pageSize = (tAttributes.pageSize) ? Number(tAttributes.pageSize) : DEFAULT_PAGE_SIZE;
             var tolerance = (tAttributes.tolerance) ? Number(tAttributes.tolerance) : DEFAULT_TOLERANCE;
 
             verifyRepeatExpression(repeatExpression);
-            tElement.removeAttr('scroll-repeat');
-            tElement.attr('ng-repeat', tAttributes.scrollRepeat + " | limitTo:visibleResults");
+            tElement.removeAttr('ng-scroll-repeat');
+            tElement.attr('ng-repeat', repeatExpression + " | limitTo:visibleResults");
 
             return function link($scope, $element) {
                 var totalLength;

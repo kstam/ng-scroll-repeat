@@ -23,7 +23,7 @@ module.exports = function(config) {
 
             'libs/angular-mocks/angular-mocks.js',
 
-            'dist/scroll-repeat.min.js',
+            'dist/ng-scroll-repeat.min.js',
             'test/**/*.js'
         ],
 
