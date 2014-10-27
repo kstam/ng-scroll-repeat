@@ -5,6 +5,14 @@ angular.module('ks.ngScrollRepeat', ['ks.WindowService'])
         var DEFAULT_PAGE_SIZE = 50;
         var DEFAULT_TOLERANCE = 200;
 
+        var safeApply = function(scope, fn) {
+            if (scope.$$phase || scope.$root.$$phase) {
+                fn();
+            } else {
+                scope.$apply(fn);
+            }
+        };
+
         var verifyRepeatExpression = function (repeatExpression) {
             if (repeatExpression.match(/limitTo/) || repeatExpression.match(/startFrom/)) {
                 throw new Error('"limitTo" and "startFrom" filters are not allowed in scroll-repeat directive');
@@ -45,7 +53,9 @@ angular.module('ks.ngScrollRepeat', ['ks.WindowService'])
                 $scope.$on(windowService.WINDOW_SCROLL, function () {
                     var diff = calculateScrollBottomDiff(elementParent);
                     if (diff <= tolerance && totalLength > $scope.visibleResults) {
-                        $scope.visibleResults += pageSize;
+                        safeApply($scope, function() {
+                            $scope.visibleResults += pageSize;
+                        });
                     }
                 });
             };
@@ -62,29 +72,30 @@ angular.module('ks.WindowService', [])
     .factory('WindowService', ['$window', function ($window) {
         var windowElement = angular.element($window);
         var WINDOW_SCROLL = 'WINDOW_SCROLL';
+        var listeners = [];
 
-        var safeApply = function(scope, fn) {
-            if (scope.$$phase || scope.$root.$$phase) {
-                fn();
-            } else {
-                scope.$apply(fn);
+        windowElement.on('scroll', function () {
+            var scope;
+            for (var index in listeners) {
+                scope = listeners[index];
+                scope.$broadcast(WINDOW_SCROLL);
             }
-        };
+        });
 
         return {
             WINDOW_SCROLL: WINDOW_SCROLL,
-            height: function() {
+            height: function () {
                 return windowElement.height();
             },
-            scrollTop: function() {
+            scrollTop: function () {
                 return windowElement.scrollTop();
             },
-            registerForScroll: function($scope) {
-                windowElement.on('scroll', function() {
-                    safeApply($scope, function() {
-                        $scope.$broadcast(WINDOW_SCROLL);
-                    });
-                });
+            registerForScroll: function ($scope) {
+                if ($scope && angular.isFunction($scope.$broadcast)) {
+                    listeners.push($scope);
+                } else {
+                    throw new Error('Cannot register a non-scope object for scroll');
+                }
             }
-        }
+        };
     }]);
