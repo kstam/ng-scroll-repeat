@@ -3,14 +3,6 @@ angular.module('ks.WindowService', [])
         var windowElement = angular.element($window);
         var WINDOW_SCROLL = 'WINDOW_SCROLL';
 
-        var safeApply = function(scope, fn) {
-            if (scope.$$phase || scope.$root.$$phase) {
-                fn();
-            } else {
-                scope.$apply(fn);
-            }
-        };
-
         return {
             WINDOW_SCROLL: WINDOW_SCROLL,
             height: function() {
@@ -21,9 +13,7 @@ angular.module('ks.WindowService', [])
             },
             registerForScroll: function($scope) {
                 windowElement.on('scroll', function() {
-                    safeApply($scope, function() {
-                        $scope.$broadcast(WINDOW_SCROLL);
-                    });
+                    $scope.$broadcast(WINDOW_SCROLL);
                 });
             }
         }

@@ -5,6 +5,14 @@ angular.module('ks.ngScrollRepeat', ['ks.WindowService'])
         var DEFAULT_PAGE_SIZE = 50;
         var DEFAULT_TOLERANCE = 200;
 
+        var safeApply = function(scope, fn) {
+            if (scope.$$phase || scope.$root.$$phase) {
+                fn();
+            } else {
+                scope.$apply(fn);
+            }
+        };
+
         var verifyRepeatExpression = function (repeatExpression) {
             if (repeatExpression.match(/limitTo/) || repeatExpression.match(/startFrom/)) {
                 throw new Error('"limitTo" and "startFrom" filters are not allowed in scroll-repeat directive');
@@ -45,7 +53,9 @@ angular.module('ks.ngScrollRepeat', ['ks.WindowService'])
                 $scope.$on(windowService.WINDOW_SCROLL, function () {
                     var diff = calculateScrollBottomDiff(elementParent);
                     if (diff <= tolerance && totalLength > $scope.visibleResults) {
-                        $scope.visibleResults += pageSize;
+                        safeApply($scope, function() {
+                            $scope.visibleResults += pageSize;
+                        });
                     }
                 });
             };
