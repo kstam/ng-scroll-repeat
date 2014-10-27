@@ -8,7 +8,18 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var bower = require('gulp-bower');
+var header = require('gulp-header');
 var karma = require('karma').server;
+var fs = require('fs');
+
+var getCopyright = function() {
+   return fs.readFileSync('source/Copyright');
+};
+
+var getVersion = function() {
+    var bowerFile = fs.readFileSync('bower.json');
+    return JSON.parse(bowerFile).version;
+};
 
 gulp.task('lint', function() {
    return gulp.src('source/*.js')
@@ -48,8 +59,10 @@ gulp.task('testDistMin', function(done) {
 gulp.task('dist', function() {
    return gulp.src('source/*.js')
        .pipe(concat('ng-scroll-repeat.js'))
+       .pipe(header(getCopyright(), {version: getVersion()}))
        .pipe(gulp.dest('dist'))
        .pipe(uglify())
+       .pipe(header(getCopyright(), {version: getVersion()}))
        .pipe(rename('ng-scroll-repeat.min.js'))
        .pipe(gulp.dest('dist'));
 });

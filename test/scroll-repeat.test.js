@@ -125,4 +125,18 @@ describe('Scroll Repeat Directive', function() {
             $compile(elementHtml)(scope);
         }).toThrow();
     });
+
+    it('resets the number of pages loaded when the collection changes', function() {
+        mockWindowHeightAndScroll(10, 0);
+        compileDirective(100, 10, 0);
+        scrollToElement(element.find('.item:last'));
+        fireScrollEvent();
+
+        expect(element.find('.item').length).toBe(20);
+
+        initItems(scope, 50);
+        scope.$digest();
+
+        expect(element.find('.item').length).toBe(10);
+    });
 });

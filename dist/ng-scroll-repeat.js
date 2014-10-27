@@ -1,3 +1,11 @@
+/*
+Angular Scroll Repeat v0.0.3 by @kstam
+Copyright (c) 2014
+
+Full source at https://github.com/kstam/ng-scroll-repeat
+
+MIT License, https://github.com/kstam/ng-scroll-repeat/LICENSE
+*/
 angular.module('ks.ngScrollRepeat', ['ks.WindowService'])
     .directive('ngScrollRepeat', ['$compile', 'WindowService', function ($compile, windowService) {
         'use strict';
@@ -44,6 +52,7 @@ angular.module('ks.ngScrollRepeat', ['ks.WindowService'])
 
                 $scope.$watch(collectionString, function (collection) {
                     totalLength = collection.length;
+                    $scope.visibleResults = pageSize;
                 }, true);
 
                 var elementParent = $($element[0]).parent();
@@ -68,6 +77,7 @@ angular.module('ks.ngScrollRepeat', ['ks.WindowService'])
             compile: compile
         };
     }]);
+
 angular.module('ks.WindowService', [])
     .factory('WindowService', ['$window', function ($window) {
         var windowElement = angular.element($window);

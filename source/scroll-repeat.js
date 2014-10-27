@@ -44,6 +44,7 @@ angular.module('ks.ngScrollRepeat', ['ks.WindowService'])
 
                 $scope.$watch(collectionString, function (collection) {
                     totalLength = collection.length;
+                    $scope.visibleResults = pageSize;
                 }, true);
 
                 var elementParent = $($element[0]).parent();
