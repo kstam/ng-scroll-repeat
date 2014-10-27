@@ -4,7 +4,7 @@ Copyright (c) 2014
 
 Full source at https://github.com/kstam/ng-scroll-repeat
 
-MIT License, https://github.com/kstam/ng-scroll-repeat/LICENSE
+MIT License, https://github.com/kstam/ng-scroll-repeat/blob/master/LICENSE
 */
 angular.module('ks.ngScrollRepeat', ['ks.WindowService'])
     .directive('ngScrollRepeat', ['$compile', 'WindowService', function ($compile, windowService) {
