@@ -6,6 +6,9 @@ angular.module('ks.ngScrollRepeat', ['ks.WindowService'])
         var DEFAULT_TOLERANCE = 200;
 
         var safeApply = function(scope, fn) {
+            // broadcasts a new event each time the bottom is reached
+            scope.$broadcast('bottom-reached'); 
+
             if (scope.$$phase || scope.$root.$$phase) {
                 fn();
             } else {
