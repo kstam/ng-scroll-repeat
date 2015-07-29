@@ -32,3 +32,10 @@ HTML
         <div>{{item.id}}</div>
         <div>{{item.description}}</div>
     </div>
+
+OPTION - setup a callback function that will be triggered by the "bottom-reached" event.
+This event is broadcast each time the bottom of the page is reached.
+	
+		$scope.$on('bottom-reached', function() {
+			// do whatever you want
+		});
