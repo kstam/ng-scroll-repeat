@@ -53,7 +53,7 @@ describe('Scroll Repeat Directive', function() {
         initItems(scope, itemSize);
         element = angular.element(elementHtml);
         $(document.body).append(element);
-        $compile(element)(scope);
+        element = $compile(element)(scope);
         scope.$digest();
     }
 
@@ -91,6 +91,18 @@ describe('Scroll Repeat Directive', function() {
         expect(element.find('.item').length).toBe(2);
     });
 
+    it('fires bottom-reached-before event before it loads new page', function() {
+        mockWindowHeightAndScroll(20, 0);
+        compileDirective(10, 1, 0);
+        expect(element.find('.item').length).toBe(1);
+        scrollToElement(element.find('.item:last'));
+
+        spyOn(scope, '$broadcast').and.callThrough();
+        fireScrollEvent();
+        expect(scope.$broadcast).toHaveBeenCalledWith('bottom-reached-before');
+        expect(scope.$broadcast).toHaveBeenCalledWith('bottom-reached-after');
+    });
+
     it('does not show new data when data bottom is below tolerance area', function() {
         mockWindowHeightAndScroll(10, 0);
         compileDirective(100, 10, 0);
@@ -98,6 +110,7 @@ describe('Scroll Repeat Directive', function() {
         fireScrollEvent();
         expect(element.find('.item').length).toBe(10);
     });
+
     it('keeps loading new data as the user scrolls', function() {
         mockWindowHeightAndScroll(10, 0);
         compileDirective(100, 10, 0);

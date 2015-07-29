@@ -36,6 +36,12 @@ HTML
 OPTION - setup a callback function that will be triggered by the "bottom-reached" event.
 This event is broadcast each time the bottom of the page is reached.
 	
-		$scope.$on('bottom-reached', function() {
+	    //before showing the new page data
+		$scope.$on('bottom-reached-before', function() {
 			// do whatever you want
 		});
+
+        //after showing the new page data
+        $scope.$on('bottom-reached-after', function() {
+            // do whatever you want
+        });

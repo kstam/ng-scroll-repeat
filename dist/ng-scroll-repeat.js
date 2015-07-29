@@ -12,6 +12,8 @@ angular.module('ks.ngScrollRepeat', ['ks.WindowService'])
 
         var DEFAULT_PAGE_SIZE = 50;
         var DEFAULT_TOLERANCE = 200;
+        var BOTTOM_REACHED_BEFORE_EVT = 'bottom-reached-before';
+        var BOTTOM_REACHED_AFTER_EVT = 'bottom-reached-after';
 
         var safeApply = function(scope, fn) {
             if (scope.$$phase || scope.$root.$$phase) {
@@ -45,6 +47,7 @@ angular.module('ks.ngScrollRepeat', ['ks.WindowService'])
             tElement.attr('ng-repeat', repeatExpression + " | limitTo:visibleResults");
 
             return function link($scope, $element) {
+                var elementParent = $($element[0]).parent();
                 var totalLength;
 
                 $scope.visibleResults = pageSize;
@@ -55,20 +58,21 @@ angular.module('ks.ngScrollRepeat', ['ks.WindowService'])
                     $scope.visibleResults = pageSize;
                 }, true);
 
-                var elementParent = $($element[0]).parent();
-
-                windowService.registerForScroll($scope);
-
                 $scope.$on(windowService.WINDOW_SCROLL, function () {
                     var diff = calculateScrollBottomDiff(elementParent);
                     if (diff <= tolerance && totalLength > $scope.visibleResults) {
+                        $scope.$broadcast(BOTTOM_REACHED_BEFORE_EVT);
                         safeApply($scope, function() {
                             $scope.visibleResults += pageSize;
                         });
+                        $scope.$broadcast(BOTTOM_REACHED_AFTER_EVT);
                     }
                 });
+
+                windowService.registerForScroll($scope);
             };
         };
+
         return {
             replace: false,
             terminal: true,

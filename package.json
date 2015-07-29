@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Augmented Angular Repeat with infinite scroll functionality",
   "scripts": {
-    "test": "node_modules/karma/bin/karma start"
+    "test": "node_modules/karma/bin/karma start test/config/karma.conf.js"
   },
   "repository": {
     "type": "git",
