@@ -19,7 +19,7 @@ Or using bower run
 Example
 ---
 
-Check a live example [here](https://rawgit.com/kstam/ng-scroll-repeat/master/example/index.html)
+Check a live example <a href="https://rawgit.com/kstam/ng-scroll-repeat/master/example/index.html" target="_blank">here</a>
 
 The code of the example can be found [here](./example/index.html)
 
