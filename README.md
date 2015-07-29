@@ -15,6 +15,14 @@ Or using bower run
 
     bower install ng-scroll-repeat
 
+
+Example
+---
+
+Check a live example [here](https://rawgit.com/kstam/ng-scroll-repeat/master/example/index.html)
+
+The code of the example can be found [here](./example/index.html)
+
 Use
 ---
 
