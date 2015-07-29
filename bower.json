@@ -3,6 +3,7 @@
   "version": "0.0.4",
   "main": "dist/ng-scroll-repeat.js",
   "ignore": [
+    "example",
     "source",
     "test",
     ".bowerrc",
