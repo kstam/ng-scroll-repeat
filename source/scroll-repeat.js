@@ -62,6 +62,10 @@ angular.module('ks.ngScrollRepeat', ['ks.WindowService'])
                 });
 
                 windowService.registerForScroll($scope);
+
+                $scope.$on('$destroy', function() {
+                    windowService.deregisterForScroll($scope);
+                });
             };
         };
 
