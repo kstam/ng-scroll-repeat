@@ -1,5 +1,5 @@
 /*
-Angular Scroll Repeat v0.0.3 by @kstam
+Angular Scroll Repeat v0.0.4 by @kstam
 Copyright (c) 2014
 
 Full source at https://github.com/kstam/ng-scroll-repeat
@@ -70,6 +70,10 @@ angular.module('ks.ngScrollRepeat', ['ks.WindowService'])
                 });
 
                 windowService.registerForScroll($scope);
+
+                $scope.$on('$destroy', function() {
+                    windowService.deregisterForScroll($scope);
+                });
             };
         };
 
@@ -110,6 +114,9 @@ angular.module('ks.WindowService', [])
                 } else {
                     throw new Error('Cannot register a non-scope object for scroll');
                 }
+            },
+            deregisterForScroll: function ($scope) {
+                listeners.splice(listeners.indexOf($scope), 1);
             }
         };
     }]);
