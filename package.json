@@ -1,6 +1,6 @@
 {
   "name": "ng-scroll-repeat",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Augmented Angular Repeat with infinite scroll functionality",
   "scripts": {
     "test": "node_modules/karma/bin/karma start test/config/karma.conf.js"
