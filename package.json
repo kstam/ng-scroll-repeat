@@ -18,7 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.8.8",
-    "gulp-bower": "0.0.6",
+    "gulp-bower": "^0.0.11",
     "gulp-concat": "^2.4.1",
     "gulp-header": "^1.2.2",
     "gulp-jshint": "^1.8.5",
