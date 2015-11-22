@@ -24,6 +24,9 @@ angular.module('ks.WindowService', [])
                 } else {
                     throw new Error('Cannot register a non-scope object for scroll');
                 }
+            },
+            deregisterForScroll: function ($scope) {
+                listeners.splice(listeners.indexOf($scope), 1);
             }
         };
     }]);

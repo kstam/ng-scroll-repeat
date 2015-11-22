@@ -11,6 +11,7 @@ describe('Scroll Repeat Directive', function() {
                 height: function() {return windowHeight},
                 scrollTop: function() {return scrollTop},
                 registerForScroll: function() {},
+                deregisterForScroll: function() {},
                 WINDOW_SCROLL: 'WINDOW_SCROLL'
             };
             $provide.value('WindowService', mockWindowService);
@@ -151,5 +152,15 @@ describe('Scroll Repeat Directive', function() {
         scope.$digest();
 
         expect(element.find('.item').length).toBe(10);
+    });
+
+    it('deregisters when destroyed', function() {
+        mockWindowHeightAndScroll(20, 0);
+        compileDirective(10, 1, 0);
+        expect(element.find('.item').length).toBe(1);
+
+        spyOn(mockWindowService, 'deregisterForScroll');
+        scope.$destroy();
+        expect(mockWindowService.deregisterForScroll).toHaveBeenCalledWith(scope);
     });
 });

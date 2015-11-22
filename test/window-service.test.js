@@ -46,6 +46,18 @@ describe('Window Service', function() {
         expect(scope2Listener.listener).toHaveBeenCalled();
     });
 
+    it('does not fire WINDOW_SCROLL event on unregistered scopes on scroll', function() {
+        spyOn(scope1Listener, 'listener');
+        spyOn(scope2Listener, 'listener');
+        windowService.registerForScroll(scope1);
+        windowService.registerForScroll(scope2);
+        windowService.deregisterForScroll(scope1);
+
+        $(window).trigger('scroll');
+        expect(scope1Listener.listener).not.toHaveBeenCalled();
+        expect(scope2Listener.listener).toHaveBeenCalled();
+    });
+
     it('fires WINDOW_SCROLL event on the scope on window scroll', function() {
         spyOn(scope1Listener, 'listener');
         spyOn(scope2Listener, 'listener');
