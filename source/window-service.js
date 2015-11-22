@@ -17,9 +17,7 @@ angular.module('ks.WindowService', [])
             height: function () {
                 return windowElement.height();
             },
-            scrollTop: function () {
-                return windowElement.scrollTop();
-            },
+            scrollTop: windowElement.scrollTop,
             registerForScroll: function ($scope) {
                 if ($scope && angular.isFunction($scope.$broadcast)) {
                     listeners.push($scope);
